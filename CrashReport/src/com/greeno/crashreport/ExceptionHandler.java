@@ -11,22 +11,23 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Date;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
+import android.preference.PreferenceManager;
+
 import com.greeno.Data.CrashReportData;
 import com.greeno.Util.ApplicationInformation;
 import com.greeno.model.CrashReportDB_Factory;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Build;
-
 public class ExceptionHandler implements java.lang.Thread.UncaughtExceptionHandler {
 	private final Activity myContext;
 	private final String LINE_SEPARATOR = "\n";
-	private String appName = "";
+//	private String appName = "";
 	ApplicationInformation applicationInformation = new ApplicationInformation();
 	
 	
@@ -118,6 +119,36 @@ public class ExceptionHandler implements java.lang.Thread.UncaughtExceptionHandl
             // Ask user to enable GPS/network in settings
 //            gps.showSettingsAlert();
         }
+        
+        
+//        SharedPreferences preferences = myContext
+//				.getSharedPreferences(myContext.getString(R.string.shared_references_name),
+//						0);
+//        System.out.println("== myContext.getString(R.string.shared_references_name) =="+myContext.getResources().getString(R.string.shared_references_name));
+//        System.out.println("== myContext.getString(R.string.mobile_number) =="+myContext.getResources().getString(R.string.mobile_number));
+ /*       SharedPreferences preferences = myContext
+				.getSharedPreferences(myContext.getResources().getString(R.string.shared_references_name),
+						myContext.MODE_PRIVATE);
+*/
+        System.out.println("== (myContext.getResources()).getString(R.string.shared_references_name) ="+(myContext.getResources()).getString(R.string.shared_references_name));
+       SharedPreferences preferences = myContext
+				.getSharedPreferences("RainbowAgri"+applicationName,
+						myContext.MODE_WORLD_READABLE);
+//      
+        String mobileNumber1=" ";//preferences.getString(myContext.getString(R.string.mobile_number), "0");
+if(preferences!= null)
+{
+	System.out.println("In IF");
+	mobileNumber1 = preferences.getString("mobilenumber", "0");
+//	mobileNumber1 =preferences.getString(myContext.getString(R.string.mobile_number), "0");
+	System.out.println("=== Shared == Mobile ="+mobileNumber1);
+}
+else
+{
+	System.out.println("In else");
+}
+		
+//        System.out.println("=== Shared == Mobile ="+preferences.getString(myContext.getString(R.string.mobile_number), "0"));
 		System.out.println("===== isInternetConnect ====="+isInternetConnect);
 		System.out.println("====== latitude =="+latitude);
 		System.out.println("====== longitude =="+longitude);
@@ -126,7 +157,7 @@ public class ExceptionHandler implements java.lang.Thread.UncaughtExceptionHandl
 		
 		crashReportData.setCurrentDate(currentDate);
 		crashReportData.setGeoLocation(latitude+":"+longitude);
-		crashReportData.setAppName(applicationName);
+		crashReportData.setAppName(applicationName);//+"- Testing("+mobileNumber+")");
 		crashReportData.setAppVersionName(versionName);
 		crashReportData.setAppVersionCode(""+versionCode);
 		crashReportData.setDeviceBrand(""+Build.BRAND);
@@ -137,6 +168,9 @@ public class ExceptionHandler implements java.lang.Thread.UncaughtExceptionHandl
 		
 		crashReportData.setIsInternetAvailable(isInternetConnect);
 		crashReportData.setTypeOfInternet(typeOfInternet);
+		
+		crashReportData.setMobileNumber(mobileNumber1);
+//		crashReportData.setMobileNumber("1234567890");
 		System.out.println("===== isInternetConnect crashReportData ====="+crashReportData.getIsInternetAvailable());
 		crashReportDB_Factory.onCreate(applicationName);
 		crashReportDB_Factory.onSave(crashReportData);
