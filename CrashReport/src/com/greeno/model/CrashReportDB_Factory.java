@@ -37,6 +37,8 @@ public class CrashReportDB_Factory extends SQLiteOpenHelper implements CrashRepo
 	public String isInternetAvailble = "isInternetAvailble";
 	public String typeOfInternet = "typeOfInternet";
 	
+	public String mobileNumber = "mobileNumber";
+	
 	public CrashReportDB_Factory(Context context)
 	{
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -53,12 +55,12 @@ public class CrashReportDB_Factory extends SQLiteOpenHelper implements CrashRepo
 							+currentDate+" BIGINT UNIQUE , "+geoLocation+" TEXT, "+appName+" TEXT, "
 							+appVersionName+" TEXT, "+appVersionCode+" TEXT, "+deviceBrand+" TEXT, "
 							+deviceOSVersion+" TEXT, "+deviceModel+" TEXT, "+deviceSDKNo+" TEXT, "
-							+stackTrace+" TEXT, "+isInternetAvailble+" TEXT, "+typeOfInternet+" TEXT "+     " )"+"";
-		System.out.println("1 createQuery="+createQuery);
+							+stackTrace+" TEXT, "+isInternetAvailble+" TEXT, "+typeOfInternet+" TEXT , "+mobileNumber+" TEXT "+     " )"+"";
+//		System.out.println("1 createQuery="+createQuery);
 		SQLiteDatabase db=this.getReadableDatabase();
 		db.execSQL(createQuery);
 		db.close();
-		System.out.println("2 createQuery="+createQuery);
+//		System.out.println("2 createQuery="+createQuery);
 	}
 	
 	// Insert value in Table
@@ -72,11 +74,12 @@ public class CrashReportDB_Factory extends SQLiteOpenHelper implements CrashRepo
 			String insertQuery = "insert into "+TABLE_NAME+"("+currentDate+" , "+geoLocation+", "+appName+", "
 					+appVersionName+", "+appVersionCode+", "+deviceBrand+", "
 					+deviceOSVersion+", "+deviceModel+", "+deviceSDKNo+" , "
-					+stackTrace+","+isInternetAvailble+","+typeOfInternet+") values("+crashReportData.getCurrentDate()+",'"+crashReportData.getGeoLocation()+"','"+crashReportData.getAppName()+"','"
+					+stackTrace+","+isInternetAvailble+","+typeOfInternet+","+mobileNumber+") values("+crashReportData.getCurrentDate()+",'"+crashReportData.getGeoLocation()+"','"+crashReportData.getAppName()+"','"
 					+crashReportData.getAppVersionName()+"','"+crashReportData.getAppVersionCode()+"','"+crashReportData.getDeviceBrand()+"','"
 					+crashReportData.getDeviceOSVersion()+"','"+crashReportData.getDeviceModel()+"','"				
 					+crashReportData.getDeviceSDKNo()+"','"+crashReportData.getStackTrace()+"','"
-					+crashReportData.getIsInternetAvailable()+"','"+crashReportData.getTypeOfInternet()+"'"
+					+crashReportData.getIsInternetAvailable()+"','"+crashReportData.getTypeOfInternet()+"','"
+					+crashReportData.getMobileNumber()+"'"
 					+")"; 
 			
 			System.out.println("=== insertQuery =="+insertQuery);
@@ -114,7 +117,10 @@ public class CrashReportDB_Factory extends SQLiteOpenHelper implements CrashRepo
 			crashReportData.setDeviceModel(getList.getString(7));
 			crashReportData.setDeviceSDKNo(getList.getString(8));
 			crashReportData.setStackTrace(getList.getString(9));
+			crashReportData.setIsInternetAvailable(getList.getString(10));
+			crashReportData.setTypeOfInternet(getList.getString(11));
 			
+			crashReportData.setMobileNumber(getList.getString(getList.getColumnIndex(mobileNumber)));
 			crashReportList.add(crashReportData);
 		}
 		db.close();
@@ -134,16 +140,26 @@ public class CrashReportDB_Factory extends SQLiteOpenHelper implements CrashRepo
 	{
 		
 		int count = 0;
-		TABLE_NAME="CrashReport_" + applicationName;
-		String selectQuery  = "select * from "+TABLE_NAME+" where "+appName+"='"+applicationName+"'";
 		
-		SQLiteDatabase db = this.getReadableDatabase();
-		Cursor getList = db.rawQuery(selectQuery, null);
-		
-		count = getList.getCount();
-		
-		db.close();
-		getList.close();
+		try
+		{
+			TABLE_NAME="CrashReport_" + applicationName;
+			String selectQuery  = "select * from "+TABLE_NAME+" where "+appName+"='"+applicationName+"'";
+			
+			SQLiteDatabase db = this.getReadableDatabase();
+			Cursor getList = db.rawQuery(selectQuery, null);
+			
+			count = getList.getCount();
+			
+			db.close();
+			getList.close();
+		}
+		catch(Exception e)
+		{
+			onCreate(applicationName);
+			return count;
+		}
+
 
 		return count;
 	}
@@ -174,6 +190,8 @@ public class CrashReportDB_Factory extends SQLiteOpenHelper implements CrashRepo
 			
 			crashReportData.setIsInternetAvailable(getList.getString(10));
 			crashReportData.setTypeOfInternet(getList.getString(11));
+			
+			crashReportData.setMobileNumber(getList.getString(getList.getColumnIndex(mobileNumber)));
 			
 		}
 		db.close();
