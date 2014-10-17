@@ -99,6 +99,9 @@ public class XmlCreator {
 			rootElement.appendChild(typeOfInternetElement);
 			typeOfInternetElement.appendChild(document.createTextNode(crashReportData.getTypeOfInternet()));
 			
+			Element mobileNumberElement = document.createElement("mobileNumber");
+			rootElement.appendChild(mobileNumberElement);
+			mobileNumberElement.appendChild(document.createTextNode(crashReportData.getMobileNumber()));
 		
 			
 			TransformerFactory factory = TransformerFactory.newInstance();

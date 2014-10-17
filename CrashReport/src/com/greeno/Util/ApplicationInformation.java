@@ -59,7 +59,7 @@ public class ApplicationInformation {
 				CONN_WAIT_TIME);
 		HttpConnectionParams.setSoTimeout(httpParams, CONN_DATA_WAIT_TIME);
 		DefaultHttpClient httpClient = new DefaultHttpClient(httpParams);
-		HttpPost httppost = new HttpPost("http://rainbowagri.com/RainbowDev/REST/WebService/crashReportInfo");
+		HttpPost httppost = new HttpPost("http://rainbowagri.com/Rainbow/REST/WebService/crashReportInfo");
 
 		httppost.addHeader("Accept", "application/xml");
 		httppost.addHeader("Content-Type", "application/xml");
