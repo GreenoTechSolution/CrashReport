@@ -23,6 +23,8 @@ public class CrashReportData {
 	private String isInternetAvailable;
 	private String typeOfInternet ;
 	
+	private String mobileNumber;
+	
 	
 	public long getCurrentDate() {
 		return currentDate;
@@ -96,7 +98,13 @@ public class CrashReportData {
 	public void setTypeOfInternet(String typeOfInternet) {
 		this.typeOfInternet = typeOfInternet;
 	}
-	
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
 	
 	
 }
