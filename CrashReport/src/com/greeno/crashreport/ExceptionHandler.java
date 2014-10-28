@@ -120,38 +120,18 @@ public class ExceptionHandler implements java.lang.Thread.UncaughtExceptionHandl
 //            gps.showSettingsAlert();
         }
         
-        
-//        SharedPreferences preferences = myContext
-//				.getSharedPreferences(myContext.getString(R.string.shared_references_name),
-//						0);
-//        System.out.println("== myContext.getString(R.string.shared_references_name) =="+myContext.getResources().getString(R.string.shared_references_name));
-//        System.out.println("== myContext.getString(R.string.mobile_number) =="+myContext.getResources().getString(R.string.mobile_number));
- /*       SharedPreferences preferences = myContext
-				.getSharedPreferences(myContext.getResources().getString(R.string.shared_references_name),
-						myContext.MODE_PRIVATE);
-*/
-        System.out.println("== (myContext.getResources()).getString(R.string.shared_references_name) ="+(myContext.getResources()).getString(R.string.shared_references_name));
-       SharedPreferences preferences = myContext
+        SharedPreferences preferences = myContext
 				.getSharedPreferences("RainbowAgri"+applicationName,
 						myContext.MODE_WORLD_READABLE);
 //      
-        String mobileNumber1=" ";//preferences.getString(myContext.getString(R.string.mobile_number), "0");
-if(preferences!= null)
-{
-	System.out.println("In IF");
-	mobileNumber1 = preferences.getString("mobilenumber", "0");
-//	mobileNumber1 =preferences.getString(myContext.getString(R.string.mobile_number), "0");
-	System.out.println("=== Shared == Mobile ="+mobileNumber1);
-}
-else
-{
-	System.out.println("In else");
-}
+        String mobileNumber1="0";//preferences.getString(myContext.getString(R.string.mobile_number), "0");
+		if(preferences!= null)
+		{
+			mobileNumber1 = preferences.getString("mobilenumber", "0");
+			
+		}
+
 		
-//        System.out.println("=== Shared == Mobile ="+preferences.getString(myContext.getString(R.string.mobile_number), "0"));
-		System.out.println("===== isInternetConnect ====="+isInternetConnect);
-		System.out.println("====== latitude =="+latitude);
-		System.out.println("====== longitude =="+longitude);
 		CrashReportData crashReportData = new CrashReportData();
 		CrashReportDB_Factory crashReportDB_Factory = new CrashReportDB_Factory(myContext);
 		
@@ -170,8 +150,6 @@ else
 		crashReportData.setTypeOfInternet(typeOfInternet);
 		
 		crashReportData.setMobileNumber(mobileNumber1);
-//		crashReportData.setMobileNumber("1234567890");
-		System.out.println("===== isInternetConnect crashReportData ====="+crashReportData.getIsInternetAvailable());
 		crashReportDB_Factory.onCreate(applicationName);
 		crashReportDB_Factory.onSave(crashReportData);
 		
