@@ -41,7 +41,7 @@ public class ExceptionHandler implements java.lang.Thread.UncaughtExceptionHandl
 		
 		StringWriter stackTrace = new StringWriter();
 		exception.printStackTrace(new PrintWriter(stackTrace));
-		StringBuilder errorReport = new StringBuilder();
+/*		StringBuilder errorReport = new StringBuilder();
 		String message = exception.getMessage();
 		errorReport.append(message);
 		errorReport.append("************ CAUSE OF ERROR ************\n\n");
@@ -74,7 +74,7 @@ public class ExceptionHandler implements java.lang.Thread.UncaughtExceptionHandl
 		errorReport.append(Build.VERSION.INCREMENTAL);
 		errorReport.append(LINE_SEPARATOR);
 		System.out.println("===errorReport=="+errorReport.toString());
-		
+*/		
 		
 		String  versionName = "", applicationName = "";
 		String isInternetConnect ="", typeOfInternet = ""; 

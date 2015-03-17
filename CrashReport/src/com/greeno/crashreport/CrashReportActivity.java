@@ -54,7 +54,6 @@ public class CrashReportActivity extends Activity {
         progressBar = new ProgressDialog(this);
 		progressBar.setCancelable(true);
 		progressBar.setProgressStyle(ProgressDialog.THEME_HOLO_DARK);
-		System.out.println("======== Entering CrashReportActivity ==");
         try {
 			crashReportData = crashReportDB_Factory.getReportByCurrentDate(applicationInformation.getApplicationName(getBaseContext()), crashReportDB_Factory.getLastDataCurrentDate(applicationInformation.getApplicationName(getBaseContext())));
 		} catch (NameNotFoundException e) {
@@ -63,126 +62,7 @@ public class CrashReportActivity extends Activity {
 		}
         
         openAlertDialog();
-        
- /*       
-        layout = new LinearLayout(this);
-        LinearLayout layoutSub = new LinearLayout(this);
-        
-        TextView textViewHeading = new TextView(this);
-        TextView textViewContent = new TextView(this);
-        okButtonCrash = new Button(this);
-        cancelButtonCrash = new Button(this);
-        
-        Display display = getWindowManager().getDefaultDisplay();
-		int screenWidth = display.getWidth();
-		int screenHeight = display.getHeight(); 
-		System.out.println("screenWidth="+screenWidth+";screenHeight="+screenHeight);		
-		int alertBoxWidth = (screenWidth * 1)/3;
-		int alertBoxHeight = (screenHeight * 1)/3;
-        
-        
-        layout.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        layout.setOrientation(LinearLayout.VERTICAL);
-//        LinearLayout.LayoutParams paramsHead = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        layout.setLayoutParams(paramsHead);
-//	
-        textViewHeading.setText(" ALERT ");
-        textViewHeading.setPadding(5, 20, 5, 20);
-        textViewHeading.setTextColor(Color.parseColor("#FFFFFF"));
-        textViewHeading.setBackgroundColor(Color.parseColor("#007fff"));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LayoutParams.MATCH_PARENT,(alertBoxHeight*1)/4);//50);
-//            params.weight = 1.0f;
-            params.gravity=Gravity.CENTER;
-
-        textViewHeading.setLayoutParams(params);
-        textViewHeading.setTextSize(16);
-        
-        
-
-        
-        
-        LinearLayout.LayoutParams paramsSub = new LinearLayout.LayoutParams(
-                LayoutParams.WRAP_CONTENT,  (alertBoxHeight*2)/4);//100);
-//            params.weight = 1.0f;
-        paramsSub.gravity=Gravity.CENTER;
-        textViewContent.setLayoutParams(paramsSub);
-        textViewContent.setText("Looks like something went wrong, Sorry for the inconvenience. We will analyze the issue.");
-        textViewContent.setPadding(5, 10, 5, 20);
-        textViewContent.setTextColor(Color.parseColor("#000000"));
-        textViewContent.setTextSize(14);
-        textViewContent.setGravity(Gravity.CENTER);
-        
-
-        LinearLayout.LayoutParams paramsLayoutSub = new LinearLayout.LayoutParams(
-        		alertBoxWidth, (alertBoxHeight*1)/4);//
-//      LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        paramsLayoutSub.gravity=Gravity.CENTER_HORIZONTAL;
-        layoutSub.setLayoutParams(paramsLayoutSub);
-        layoutSub.setOrientation(LinearLayout.HORIZONTAL);
-        layoutSub.setBackgroundColor(Color.parseColor("#FFFFFF"));
-            
-        
-        
-        LinearLayout.LayoutParams paramsOkButtonCrash = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);//(alertBoxWidth, alertBoxHeight);//(150, 70);
-        paramsOkButtonCrash.weight = 1.0f;
-        paramsOkButtonCrash.gravity=Gravity.CENTER;
-        paramsOkButtonCrash.bottomMargin = 10;
-        paramsOkButtonCrash.rightMargin = 20;
-        okButtonCrash.setLayoutParams(paramsOkButtonCrash);
-        okButtonCrash.setText("OK");
-        okButtonCrash.setBackgroundColor(Color.parseColor("#007FFF"));
-        
-        
-        LinearLayout.LayoutParams paramsCancelButtonCrash = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);//(150, 70);
-        paramsCancelButtonCrash.weight = 1.0f;
-        paramsCancelButtonCrash.gravity=Gravity.CENTER;
-        paramsCancelButtonCrash.bottomMargin = 10;
-        paramsCancelButtonCrash.leftMargin = 20;
-        cancelButtonCrash.setLayoutParams(paramsCancelButtonCrash);
-        cancelButtonCrash.setText("Cancel");
-        cancelButtonCrash.setBackgroundColor(Color.parseColor("#007FFF"));
-    		    
-        layout.addView(textViewHeading);
-        layout.addView(textViewContent);
-        
-        layoutSub.setOrientation(LinearLayout.HORIZONTAL);
-        layoutSub.addView(okButtonCrash);
-        layoutSub.addView(cancelButtonCrash);
-        layout.addView(layoutSub);
-        
-        
-//        setContentView(layout);
-//        setContentView(R.layout.floatingactivity);
-        //** If user clicks OK, Send details to Server 
-       okButtonCrash.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-					new loadClass(CrashReportActivity.this,(View)findViewById(
-						android.R.id.content).getRootView()).execute();
-			}
-		});
-        
-       //** If user clicks CANCEL, close the application 
-       cancelButtonCrash.setOnClickListener(new OnClickListener() {			
-			@Override
-			public void onClick(View v) {	
-				try {
-					crashReportDB_Factory.deleteCrashReport(applicationInformation.getApplicationName(getBaseContext()), crashReportData.getCurrentDate());
-				} catch (NameNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				android.os.Process.killProcess(android.os.Process.myPid());
-				System.exit(10);
-				System.exit(0);
-			}
-		});
-*/        
+                
     }
     
 
@@ -200,8 +80,7 @@ public class CrashReportActivity extends Activity {
 
 				new loadClass(CrashReportActivity.this,(View)findViewById(
 						android.R.id.content).getRootView()).execute();
-				
-//				CrashReportActivity.this.finish();
+
 				dialog.dismiss();
 
 			}
